@@ -12,7 +12,7 @@ my $xml_doc;
 my $xsd_doc;
 my $is_xml_valid;
 
-foreach ( qw/epp domain contact host/ ) {
+foreach ( qw/epp domain host contact/ ) {
   print "\n##############################\n";
   print "### Object: " . uc($_) . "\n";
   print "##############################\n";
@@ -43,8 +43,34 @@ foreach ( qw/epp domain contact host/ ) {
       $xml_doc = XML::LibXML->load_xml(location => './xml/domain/'. $_ . '.xml');
       try_catch();
     }
+  } elsif ( $_ && $_ eq 'host' ) {
+    foreach (qw/
+      host_check host_check_response
+      host_info host_info_response
+      host_create host_create_response
+      host_delete host_delete_response
+      host_update host_update_response/
+    ) {
+      # load the epp xml command / response for every host action and check if all good
+      $xml_doc = XML::LibXML->load_xml(location => './xml/host/'. $_ . '.xml');
+      try_catch();
+    }
+  } elsif ( $_ && $_ eq 'contact' ) {
+    foreach (qw/
+      contact_check contact_check_response
+      contact_info contact_info_response
+      contact_transfer_query contact_transfer_query_response
+      contact_create contact_create_response
+      contact_delete contact_delete_response
+      contact_transfer_request contact_transfer_request_response
+      contact_update contact_update_response/
+    ) {
+      # load the epp xml command / response for every contact action and check if all good
+      $xml_doc = XML::LibXML->load_xml(location => './xml/contact/'. $_ . '.xml');
+      try_catch();
+    }
   }
-  print "##############################\n";
+  print "##############################\n\n";
 }
 
 # try / catch funtion
@@ -56,6 +82,6 @@ sub try_catch {
     say '==> ' . $_;
     return 0;
   };
-
+  # check if epp xml command / response samples valid or invalid from schemas
   say $is_xml_valid ? "\t$_ - Valid" : "\t$_ - Invalid";
 }
