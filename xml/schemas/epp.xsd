@@ -3,7 +3,7 @@
   <!--
    Import common element types.
    -->
-  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"/>
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" schemaLocation='./eppcom.xsd'/>
   <annotation>
     <documentation>
          Extensible Provisioning Protocol v1.0 schema.
@@ -176,7 +176,7 @@ The <login> command.
 -->
   <complexType name="loginType">
     <sequence>
-      <!-- <element name="clID" type="eppcom:clIDType"/> --> <!-- FIXME!!! -->
+      <element name="clID" type="eppcom:clIDType"/>
       <element name="pw" type="epp:pwType"/>
       <element name="newPW" type="epp:pwType" minOccurs="0"/>
       <element name="options" type="epp:credsOptionsType"/>
@@ -295,7 +295,7 @@ Response types.
       <element name="msg" type="epp:mixedMsgType" minOccurs="0"/>
     </sequence>
     <attribute name="count" type="unsignedLong" use="required"/>
-    <!-- <attribute name="id" type="eppcom:minTokenType" use="required"/> --> <!-- FIXME!!! -->
+    <attribute name="id" type="eppcom:minTokenType" use="required"/>
   </complexType>
   <complexType name="mixedMsgType" mixed="true">
     <sequence>

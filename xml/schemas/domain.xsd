@@ -1,30 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-<schema targetNamespace="urn:ietf:params:xml:ns:domain-1.0"
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
-        xmlns:host="urn:ietf:params:xml:ns:host-1.0"
-        xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        elementFormDefault="qualified">
-
-
+<schema xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xmlns:host="urn:ietf:params:xml:ns:host-1.0" xmlns:epp="urn:ietf:params:xml:ns:epp-1.0" xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:ietf:params:xml:ns:domain-1.0" elementFormDefault="qualified">
   <!--
   Import common element types.
   -->
-  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"/>
-  <import namespace="urn:ietf:params:xml:ns:epp-1.0"/>
-  <import namespace="urn:ietf:params:xml:ns:host-1.0"/>
-
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" schemaLocation='./eppcom.xsd'/>
+  <import namespace="urn:ietf:params:xml:ns:epp-1.0" schemaLocation='./epp.xsd'/>
+  <import namespace="urn:ietf:params:xml:ns:host-1.0" schemaLocation='./host.xsd'/>
   <annotation>
     <documentation>
       Extensible Provisioning Protocol v1.0
       domain provisioning schema.
     </documentation>
   </annotation>
-
-
   <!--
   Child elements found in EPP commands.
   -->
@@ -35,8 +22,6 @@
   <element name="renew" type="domain:renewType"/>
   <element name="transfer" type="domain:transferType"/>
   <element name="update" type="domain:updateType"/>
-
-
   <!--
   Child elements of the <create> command.
   -->
@@ -50,7 +35,6 @@
       <element name="authInfo" type="domain:authInfoType"/>
     </sequence>
   </complexType>
-
   <complexType name="periodType">
     <simpleContent>
       <extension base="domain:pLimitType">
@@ -58,29 +42,24 @@
       </extension>
     </simpleContent>
   </complexType>
-
   <simpleType name="pLimitType">
     <restriction base="unsignedShort">
       <minInclusive value="1"/>
       <maxInclusive value="99"/>
     </restriction>
   </simpleType>
-
   <simpleType name="pUnitType">
     <restriction base="token">
       <enumeration value="y"/>
       <enumeration value="m"/>
     </restriction>
   </simpleType>
-
   <complexType name="nsType">
     <choice>
       <element name="hostObj" type="eppcom:labelType" maxOccurs="unbounded"/>
       <element name="hostAttr" type="domain:hostAttrType" maxOccurs="unbounded"/>
     </choice>
   </complexType>
-
-
   <!--
   Name servers are either host objects or attributes.
   -->
@@ -90,8 +69,6 @@
       <element name="hostAddr" type="host:addrType" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
-
-
   <!--
   If attributes, addresses are optional and follow the
   structure defined in the host mapping.
@@ -103,7 +80,6 @@
       </extension>
     </simpleContent>
   </complexType>
-
   <simpleType name="contactAttrType">
     <restriction base="token">
       <enumeration value="admin"/>
@@ -111,15 +87,12 @@
       <enumeration value="tech"/>
     </restriction>
   </simpleType>
-
   <complexType name="authInfoType">
     <choice>
       <element name="pw" type="eppcom:pwAuthInfoType"/>
       <element name="ext" type="eppcom:extAuthInfoType"/>
     </choice>
   </complexType>
-
-
   <!--
   Child element of commands that require a single name.
   -->
@@ -128,8 +101,6 @@
       <element name="name" type="eppcom:labelType"/>
     </sequence>
   </complexType>
-
-
   <!--
   Child element of commands that accept multiple names.
   -->
@@ -138,8 +109,6 @@
       <element name="name" type="eppcom:labelType" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
-
-
   <!--
   Child elements of the <info> command.
   -->
@@ -149,15 +118,13 @@
       <element name="authInfo" type="domain:authInfoType" minOccurs="0"/>
     </sequence>
   </complexType>
-
   <complexType name="infoNameType">
     <simpleContent>
-      <extension base = "eppcom:labelType">
+      <extension base="eppcom:labelType">
         <attribute name="hosts" type="domain:hostsType" default="all"/>
       </extension>
     </simpleContent>
   </complexType>
-
   <simpleType name="hostsType">
     <restriction base="token">
       <enumeration value="all"/>
@@ -166,8 +133,6 @@
       <enumeration value="sub"/>
     </restriction>
   </simpleType>
-
-
   <!--
   Child elements of the <renew> command.
   -->
@@ -178,8 +143,6 @@
       <element name="period" type="domain:periodType" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   Child elements of the <transfer> command.
   -->
@@ -190,8 +153,6 @@
       <element name="authInfo" type="domain:authInfoType" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   Child elements of the <update> command.
   -->
@@ -203,8 +164,6 @@
       <element name="chg" type="domain:chgType" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   Data elements that can be added or removed.
   -->
@@ -215,8 +174,6 @@
       <element name="status" type="domain:statusType" minOccurs="0" maxOccurs="11"/>
     </sequence>
   </complexType>
-
-
   <!--
   Data elements that can be changed.
   -->
@@ -226,8 +183,6 @@
       <element name="authInfo" type="domain:authInfoChgType" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   Allow the registrant value to be nullified by changing the
   minLength restriction to "0".
@@ -238,8 +193,6 @@
       <maxLength value="16"/>
     </restriction>
   </simpleType>
-
-
   <!--
   Allow the authInfo value to be nullified by including an
   empty element within the choice.
@@ -251,8 +204,6 @@
       <element name="null"/>
     </choice>
   </complexType>
-
-
   <!--
   Child response elements.
   -->
@@ -262,8 +213,6 @@
   <element name="panData" type="domain:panDataType"/>
   <element name="renData" type="domain:renDataType"/>
   <element name="trnData" type="domain:trnDataType"/>
-
-
   <!--
   <check> response elements.
   -->
@@ -272,23 +221,19 @@
       <element name="cd" type="domain:checkType" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
-
   <complexType name="checkType">
     <sequence>
       <element name="name" type="domain:checkNameType"/>
       <element name="reason" type="eppcom:reasonType" minOccurs="0"/>
     </sequence>
   </complexType>
-
   <complexType name="checkNameType">
     <simpleContent>
-    <extension base="eppcom:labelType">
-      <attribute name="avail" type="boolean" use="required"/>
-    </extension>
+      <extension base="eppcom:labelType">
+        <attribute name="avail" type="boolean" use="required"/>
+      </extension>
     </simpleContent>
   </complexType>
-
-
   <!--
   <create> response elements.
   -->
@@ -299,8 +244,6 @@
       <element name="exDate" type="dateTime" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   <info> response elements.
   -->
@@ -323,8 +266,6 @@
       <element name="authInfo" type="domain:authInfoType" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   Status is a combination of attributes and an optional
   human-readable message that may be expressed in languages other
@@ -338,7 +279,6 @@
       </extension>
     </simpleContent>
   </complexType>
-
   <simpleType name="statusValueType">
     <restriction base="token">
       <enumeration value="clientDeleteProhibited"/>
@@ -360,8 +300,6 @@
       <enumeration value="serverUpdateProhibited"/>
     </restriction>
   </simpleType>
-
-
   <!--
   Pending action notification response elements.
   -->
@@ -372,7 +310,6 @@
       <element name="paDate" type="dateTime"/>
     </sequence>
   </complexType>
-
   <complexType name="paNameType">
     <simpleContent>
       <extension base="eppcom:labelType">
@@ -380,8 +317,6 @@
       </extension>
     </simpleContent>
   </complexType>
-
-
   <!--
   <renew> response elements.
   -->
@@ -391,8 +326,6 @@
       <element name="exDate" type="dateTime" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
   <!--
   <transfer> response elements.
   -->
@@ -407,9 +340,7 @@
       <element name="exDate" type="dateTime" minOccurs="0"/>
     </sequence>
   </complexType>
-
-
-<!--
+  <!--
 End of schema.
 -->
 </schema>
