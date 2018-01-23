@@ -1,3 +1,4 @@
+### Summary
 The intent of this project is to validate the XML listed in the following RFC's:
 1. [Extensible Provisioning Protocol (EPP)](https://tools.ietf.org/html/rfc5730)
 
@@ -9,7 +10,13 @@ The intent of this project is to validate the XML listed in the following RFC's:
 
 ### How to install
 ```
-git clone <my_branch>
+git clone https://github.com/paullojorgge/epp_perl_validation.git
 cd epp_perl_validation
 cpan -L local --installdeps .
+```
+
+### Execute
+```
+cd epp_perl_validation
+perl bin/xsd_epp_validation.pl
 ```
